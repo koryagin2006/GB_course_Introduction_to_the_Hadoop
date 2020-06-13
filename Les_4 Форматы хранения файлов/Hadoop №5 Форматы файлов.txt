@@ -1,0 +1,71 @@
+1. Hive create table Parquet 
+	https://cwiki.apache.org/confluence/display/Hive/Parquet
+
+		set parquet.compression=SNAPPY;
+		
+		CREATE TABLE parquet_test (
+		 id int,
+		 str string,
+		 mp MAP<STRING,STRING>,
+		 lst ARRAY<STRING>,
+		 strct STRUCT<A:STRING,B:STRING>) 
+		PARTITIONED BY (part string)
+		STORED AS PARQUET;
+	
+2. Hive create table AVRO
+	https://cwiki.apache.org/confluence/display/Hive/AvroSerDe
+	https://cwiki.apache.org/confluence/display/Hive/AvroSerDe#AvroSerDe-Hive0.14andlater
+	
+	CREATE TABLE kst (
+		string1 string,
+		string2 string,
+		int1 int,
+		boolean1 boolean,
+		long1 bigint,
+		float1 float,
+		double1 double,
+		inner_record1 struct<int_in_inner_record1:int,string_in_inner_record1:string>,
+		enum1 string,
+		array1 array<string>,
+		map1 map<string,string>,
+		union1 uniontype<float,boolean,string>,
+		fixed1 binary,
+		null1 void,
+		unionnullint int,
+		bytes1 binary)
+	  PARTITIONED BY (ds string)
+	  STORED AS AVRO;
+	  
+	  
+	  
+	CREATE TABLE as_avro(string1 STRING,
+						 int1 INT,
+						 tinyint1 TINYINT,
+						 smallint1 SMALLINT,
+						 bigint1 BIGINT,
+						 boolean1 BOOLEAN,
+						 float1 FLOAT,
+						 double1 DOUBLE,
+						 list1 ARRAY<STRING>,
+						 map1 MAP<STRING,INT>,
+						 struct1 STRUCT<sint:INT,sboolean:BOOLEAN,sstring:STRING>,
+						 union1 uniontype<FLOAT, BOOLEAN, STRING>,
+						 enum1 STRING,
+						 nullableint INT,
+						 bytes1 BINARY,
+						 fixed1 BINARY)
+	STORED AS AVRO;
+	INSERT OVERWRITE TABLE as_avro SELECT * FROM test_serializer;.
+	
+	SET avro.output.codec=snappy;
+
+	
+2. Hive create table ORC
+	https://orc.apache.org/docs/hive-ddl.html
+	https://orc.apache.org/docs/hive-config.html
+	
+ CREATE TABLE istari (
+  name STRING,
+  color STRING
+) STORED AS ORC
+TBLPROPERTIES ("orc.compress"="SNAPPY");
