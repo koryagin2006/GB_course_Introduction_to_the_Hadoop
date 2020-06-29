@@ -1,0 +1,32 @@
+﻿Ссылки по урокам:
+
+1. HDFS
+	HDFS Command Guide ( про hdfs в общем )
+	https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html
+	
+	File System Shell ( про hdfs dfs в частности )
+	https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html
+	
+	
+2. YARN
+	Mapreduce примеры про (hadoop-mapreduce-examples.jar)
+	https://docs.cloudera.com/HDPDocuments/HDP2/HDP-2.1.3/bk_using-apache-hadoop/content/running_mapreduce_examples_on_yarn.html
+	
+	YARN cli справочник
+	https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YarnCommands.html
+	
+3. Hive
+	Language Manual (справочник по Hive SQL | HQL )
+	https://cwiki.apache.org/confluence/display/Hive/LanguageManual
+	
+4+5 ETL
+	SQOOP
+	https://sqoop.apache.org/docs/1.4.7/SqoopUserGuide.html	
+	
+	FLUME
+	https://flume.apache.org/releases/content/1.9.0/FlumeUserGuide.html
+
+6 Hbase 
+	FLUME --> Hbase
+	https://blogs.apache.org/flume/entry/streaming_data_into_apache_hbase
+
