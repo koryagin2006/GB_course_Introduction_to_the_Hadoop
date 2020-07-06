@@ -1,0 +1,37 @@
+# Naming the components on the current agent
+Flume4_6.sources = ExecSource
+Flume4_6.channels = MemChannel
+Flume4_6.sinks = HdfsSink HBaseSink
+
+
+# Describing/Configuring the source
+Flume4_6.sources.ExecSource.type = exec
+Flume4_6.sources.ExecSource.command = /bin/tailf /var/log/cron
+# Flume4_6.sources.ExecSource.command = /bin/tailf /tmp/data
+# Flume4_6.sources.ExecSource.command = python /home/student4_6/random_text.py
+Flume4_6.sources.ExecSource.interceptors = TimestampInterceptor
+Flume4_6.sources.ExecSource.interceptors.TimestampInterceptor.type = timestamp
+
+
+# Describing/Configuring the HDFS sink
+Flume4_6.sinks.HdfsSink.type = hdfs
+Flume4_6.sinks.HdfsSink.hdfs.path = /flume/Flume4_6/cron/%y-%m-%d/
+Flume4_6.sinks.HdfsSink.hdfs.filePrefix = events
+
+# Describing/Configuring the HBaseSink
+Flume4_6.sinks.HBaseSink.type = hbase
+Flume4_6.sinks.HBaseSink.table = student4_6
+Flume4_6.sinks.HBaseSink.columnFamily = Cron
+Flume4_6.sinks.HBaseSink.serializer = org.apache.flume.sink.hbase.RegexHbaseEventSerializer
+
+
+# Describing/Configuring the channel
+Flume4_6.channels.MemChannel.type = memory
+Flume4_6.channels.MemChannel.capacity = 1000
+Flume4_6.channels.MemChannel.transactionCapacity = 10
+
+
+# Bind the source and sink to the channel
+Flume4_6.sources.ExecSource.channels = MemChannel
+Flume4_6.sinks.HdfsSink.channel = MemChannel
+Flume4_6.sinks.HBaseSink.channel = MemChannel
