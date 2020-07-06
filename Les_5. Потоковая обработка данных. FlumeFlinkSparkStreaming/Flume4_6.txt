@@ -7,9 +7,7 @@ Flume4_6.sinks = HdfsSink
 
 # Describing/Configuring the source 
 Flume4_6.sources.ExecSource.type = exec 
-Flume4_6.sources.ExecSource.command = /bin/tailf /var/log/cron
-# Flume4_6.sourсes.ExecSource.command = python /home/student4_6/random_text.py
-
+Flume4_6.sources.ExecSource.command = python /home/student4_6/random_text.py
 Flume4_6.sources.ExecSource.interceptors = TimestampInterceptor
 Flume4_6.sources.ExecSource.interceptors.TimestampInterceptor.type = timestamp
 
@@ -17,7 +15,10 @@ Flume4_6.sources.ExecSource.interceptors.TimestampInterceptor.type = timestamp
 # Describing/Configuring the HDFS sink 
 Flume4_6.sinks.HdfsSink.type = hdfs
 Flume4_6.sinks.HdfsSink.hdfs.path = /tmp/flume4_6/events/%y-%m-%d/%H%M
-
+Flume4_6.sinks.HdfsSink.hdfs.path = /student4_6/flume_random_text/%d-%m-%y
+# Flume4_6.sinks.HdfsSink.hdfs.filePrefix = student4_6
+Flume4_6.sinks.HdfsSink.hdfs.fileType = DataStream
+Flume4_6.sinks.HdfsSink.hdfs.writeFormat = Text
 
 
 # Describing/Configuring the channel 
@@ -28,3 +29,86 @@ Flume4_6.channels.MemChannel.transactionCapacity = 10
 # Bind the source and sink to the channel 
 Flume4_6.sources.ExecSource.channels = MemChannel
 Flume4_6.sinks.HdfsSink.channel = MemChannel
+
+--------------------------------------------------------------------
+
+
+
+Flume4_5_2.sources = ExecSource
+Flume4_5_2.channels = MemChannel
+Flume4_5_2.sinks = HDFSSink HBase
+
+Flume4_5_2.sources.ExecSource.type = exec
+Flume4_5_2.sources.ExecSource.command = cat /tmp/sales_train.csv
+Flume4_5_2.sources.ExecSource.interceptors= TimestampInterceptor
+Flume4_5_2.sources.ExecSource.interceptors.TimestampInterceptor.type= timestamp
+
+Flume4_5_2.sinks.HDFSSink.type = hdfs
+Flume4_5_2.sinks.HBase.type =  org.apache.flume.sink.hbase.AsyncHBaseSink
+Flume4_5_2.sinks.HDFSSink.hdfs.path =/user/student4_5/flume1/%d-%m-%y
+Flume4_5_2.sinks.HDFSSink.hdfs.filePrefix = student4_5
+Flume4_5_2.sinks.HDFSSink.hdfs.fileType = DataStream
+Flume4_5_2.sinks.HDFSSink.hdfs.writeFormat = Text
+
+Flume4_5_2.sinks.HBase.table = student4_5_table
+Flume4_5_2.sinks.HBase.columnFamily = data
+# Flume4_5_2.sinks.HBase.batchSize = 5000
+Flume4_5_2.sinks.HBase.serializer = org.apache.flume.sink.hbase.SimpleAsyncHbaseEventSerializer
+#Flume4_5_2.sinks.HBase.serializer.column = data:date1, data:date_block_num, data:shop_id, data:item_id, data:item_price, data:item_cnt_dayr
+Flume4_5_2.sinks.HBase.serializer.incrementColumn = icol
+
+Flume4_5_2.channels.MemChannel.type = memory
+Flume4_5_2.channels.MemChannel.capacity = 10000
+Flume4_5_2.channels.MemChannel.transactionCapacity = 1000
+
+
+Flume4_5_2.sources.ExecSource.channels = MemChannel
+Flume4_5_2.sinks.HDFSSink.channel = MemChannel
+Flume4_5_2.sinks.HBase.channel = MemChannel
+
+-----------------------------------------------------------
+
+flume4_7.sources  = ExecSource
+flume4_7.channels = MemChannel
+flume4_7.sinks = HdfsSink
+
+flume4_7.sources.ExecSource.interceptors=ts_interceptor
+flume4_7.sources.ExecSource.interceptors.ts_interceptor.type=timestamp
+
+# standard properties.
+flume4_7.sources.ExecSource.type=exec
+flume4_7.sources.ExecSource.command=/bin/tailf /tmp/test4_7.log
+
+flume4_7.sinks.HdfsSink.type = hdfs
+flume4_7.sinks.HdfsSink.hdfs.path = /flume/flume4_7/snap_day=%Y%m%d/
+
+flume4_7.channels.MemChannel.type   = memory
+flume4_7.channels.MemChannel.capacity   = 10000
+flume4_7.channels.MemChannel.transactionCapacity= 100
+
+flume4_7.sources.ExecSource.channels = MemChannel
+flume4_7.sinks.HdfsSink.channel = MemChannel
+
+------------------------------------------------
+
+Flume4_13.sources = ExecSource
+Flume4_13.channels = MemChannel
+Flume4_13.sinks = HdfsSink
+
+Flume4_13.sources.ExecSource.type = exec
+Flume4_13.sources.ExecSource.command = /bin/tailf /tmp/data
+Flume4_13.sources.ExecSource.interceptroes = TimestampInterceptor
+Flume4_13.sources.ExecSource.interceptroes.TimestampInterceptor.type = timestamp
+
+Flume4_13.sinks.HdfsSink.type = hdfs
+Flume4_13.sinks.HdfsSink.hdfs.path = /flume/Flume4_13/%y-%m-%d/
+Flume4_13.sinks.HdfsSink.hdfs.filePrefix = events
+
+Flume4_13.channels.MemChannel.type = memory
+Flume4_13.channels.MemChannel.capacity = 1000
+Flume4_13.channels.MemChannel.transactionCapacity = 200
+
+Flume4_13.sources.ExecSource.channels = MemChannel
+Flume4_13.sinks.HdfsSink.channel = MemChannel
+
+
